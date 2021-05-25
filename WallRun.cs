@@ -22,8 +22,8 @@ public class WallRun : MonoBehaviour
 
     [Header("Tilt")]
     public float tilt;
-    float normalTilt;
     
+    public float WallRunTilt;
 
     public float tiltTime;
 
@@ -122,11 +122,11 @@ public class WallRun : MonoBehaviour
                 rb.AddForce(orientation.up * pm.jumpForce);
                 if (wallLeft)
                 {
-                    rb.AddForce(orientation.right * 1f * Time.deltaTime,ForceMode.VelocityChange);
+                    rb.AddForce(orientation.right * 3f * Time.deltaTime,ForceMode.VelocityChange);
                 }
                 else if (wallRight)
                 {
-                    rb.AddForce(-orientation.right * 1f * Time.deltaTime, ForceMode.VelocityChange);
+                    rb.AddForce(-orientation.right * 3f * Time.deltaTime, ForceMode.VelocityChange);
                 }
             }
 
@@ -134,10 +134,10 @@ public class WallRun : MonoBehaviour
 
         //tilt System
         if(wallRight){
-            tilt = Mathf.Lerp(tilt,100,tiltTime * Time.deltaTime);
+            tilt = Mathf.Lerp(tilt,WallRunTilt,tiltTime * Time.deltaTime);
         }
         else if(wallLeft){
-            tilt = Mathf.Lerp(tilt,-100,tiltTime * Time.deltaTime);
+            tilt = Mathf.Lerp(tilt,-WallRunTilt,tiltTime * Time.deltaTime);
         }
  
 
@@ -150,7 +150,7 @@ public class WallRun : MonoBehaviour
         rb.useGravity = true;
         isWallRunning = false;
 
-        tilt = 0f;
+        tilt = Mathf.Lerp(tilt,0,tiltTime * Time.time);
     }
 
 }
